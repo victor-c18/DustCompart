@@ -1,4 +1,5 @@
-﻿using DustCompact.Data;
+﻿using Dapper; ///Dapper informacion de las datas
+using DustCompact.Data;
 using DustCompact.Model;
 using Npgsql;
 using System;
@@ -9,45 +10,89 @@ using System.Threading.Tasks;
 
 namespace DustCompact.Bussiones.Repositories
 {
+    /// <summary>
+    /// IBasuraRepositoy representa la interfaz de implementacion para la integracion de los datos 
+    /// </summary>
     public class BasuraRespository : IBasuraRepositoy
     {
         private PostgreSQLConfiguration _connectionString;
-        
+
         public BasuraRespository(PostgreSQLConfiguration connectionString)
         {
             _connectionString = connectionString;
         }
-        
-        protected NpgsqlConnection bdConnection()
+
+        protected NpgsqlConnection dbConnection()
         {
             return new NpgsqlConnection(_connectionString.ConnectionString);
         }
 
-        public Task<bool> deleteBasuras(int id)
+        public async Task<bool> deleteBasuras(Basuras basuras)
         {
-            throw new NotImplementedException();
+            var db = dbConnection();
+            var sql = @"
+                        DELETE 
+                        FROM public.""tbl_Desperdicio""
+                        WHERE id = @iId";
+            var result =  await db.ExecuteAsync(sql, new { Id = basuras.iId });
+            return result > 0;
         }
 
-        public Task<IEnumerable<Basuras>> GetAllBasuras()
+        public async Task<IEnumerable<Basuras>> GetAllBasuras()
         {
-            var db = bdConnection();
+            var db = dbConnection();
 
-            return null;
+            var sql = @"
+                        SELECT iid,iid_residuo,iid_user,dpeso,ccomentario,dtfechacreacion,dtfechamodificacion,dtfechaeliminacion
+                        FROM public.""tbl_Desperdicio"" ";
+
+            return await db.QueryAsync<Basuras>(sql, new { });
+
         }
 
-        public Task<Basuras> GetBasurasDetails(int id)
+        public async Task<Basuras> GetBasurasDetails(int id)
         {
-            throw new NotImplementedException();
+            var db = dbConnection();
+
+            var sql = @"
+                        SELECT iid,iid_residuo,iid_user,dpeso,ccomentario,dtfechacreacion,dtfechamodificacion,dtfechaeliminacion
+                        FROM public.""tbl_Desperdicio"" 
+                        WHERE id = @iId ";
+
+            return await db.QueryFirstOrDefaultAsync<Basuras>(sql, new { iId = id });
         }
 
-        public Task<bool> insertBasuras(Basuras basuras)
+        public async Task<bool> insertBasuras(Basuras basuras)
         {
-            throw new NotImplementedException();
+            var db = dbConnection();
+
+            var sql = @"
+                        INSER INTO pubic.""tbl_Desperdicio"" (iid_residuo, iid_user, dpeso, ccomentarios, dtfechacreacion, dtfechamodificacion pdteechaeliminacion)
+                        VALUES (@iId,@iId_Residuo,@iId_User,@dPeso,@cComentario,@dtFechaCreacion, @dtFechaModificacion, @dtFechaEliminacion) ";
+
+            var result = await db.ExecuteAsync(sql, new { basuras.iId_Residuo, basuras.iId_User, basuras.dtFechaCreacion, basuras.dtFechaModificacion, basuras.dtFechaEliminacion});
+            return result >0 ;
         }
 
-        public Task<bool> UpdateBasuras(Basuras basuras)
+        public async Task<bool> UpdateBasuras(Basuras basuras)
         {
-            throw new NotImplementedException();
+            var db = dbConnection();
+
+            var sql = @"
+                        UPDATE pubic.""tbl_Desperdicio"" 
+                        SET iid= @iId,
+                            iid_residuo= @iId_Residuo,
+                            iid_user= @iId_User,
+                            dpeso= @dPeso,
+                            ccomentarios= @cComentario,
+                            dtfechacreacion= @dtFechaCreacion,
+                            dtfechamodificacion= @dtFechaModificacion,
+                            pdtfechaeliminacion= @dtFechaEliminacion,
+                        WHERE id = @iId
+                        ";
+
+            var result = await db.ExecuteAsync(sql, new { basuras.iId, basuras.iId_Residuo, basuras.iId_User, basuras.dtFechaCreacion, basuras.dtFechaModificacion, basuras.dtFechaEliminacion });
+            return result > 0;
         }
     }
 }

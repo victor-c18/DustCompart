@@ -13,6 +13,6 @@ namespace DustCompact.Bussiones.Repositories
         Task<Basuras> GetBasurasDetails(int id);
         Task<bool> insertBasuras(Basuras basuras);
         Task<bool> UpdateBasuras(Basuras basuras);
-        Task<bool> deleteBasuras(int id);
+        Task<bool> deleteBasuras(Basuras basuras);
     }
 }

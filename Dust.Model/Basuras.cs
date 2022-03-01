@@ -6,11 +6,17 @@ using System.Threading.Tasks;
 
 namespace DustCompact.Model
 {
+
     public class Basuras
     {
-       public string Make { get; set; }
-       public string Model { get; set; }
-       public string Color { get; set; }
-       public string Doors { get; set; }
+        public int iId { get; set; }
+        public int iId_Residuo { get; set; }
+        public int iId_User { get; set; }
+        public double dPeso { get; set; }
+        public string cComentarios { get; set; }
+        public DateTime? dtFechaCreacion { get; set; }
+        public DateTime? dtFechaModificacion { get; set; }
+        public DateTime? dtFechaEliminacion { get; set; }
+
     }
 }

@@ -27,7 +27,7 @@ namespace DustCompact.Data.Repositories
         {
             var db = bdConnection();
 
-            return null;
+            throw new NotImplementedException();
         }
 
         public Task<bool> insertUsuario(Usuario usuario)
