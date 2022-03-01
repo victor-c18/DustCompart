@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace DustCompact.Model
 {
 
-    public class Basuras
+    public class BasurasDTO
     {
         public int iId { get; set; }
         public int iId_Residuo { get; set; }

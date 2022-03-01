@@ -9,10 +9,10 @@ namespace DustCompact.Bussiones.Repositories
 {
     public interface IBasuraRepositoy
     {
-        Task<IEnumerable<Basuras>> GetAllBasuras();
-        Task<Basuras> GetBasurasDetails(int id);
-        Task<bool> insertBasuras(Basuras basuras);
-        Task<bool> UpdateBasuras(Basuras basuras);
-        Task<bool> deleteBasuras(Basuras basuras);
+        Task<IEnumerable<BasurasDTO>> GetAllBasuras();
+        Task<BasurasDTO> GetBasurasDetails(int id);
+        Task<bool> insertBasuras(BasurasDTO basuras);
+        Task<bool> UpdateBasuras(BasurasDTO basuras);
+        Task<bool> deleteBasuras(BasurasDTO basuras);
     }
 }

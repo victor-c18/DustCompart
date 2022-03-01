@@ -1,15 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DustCompact.Bussiones.Repositories;
+﻿using DustCompact.Bussiones.Repositories;
 using DustCompact.Data;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
 namespace DustCompactA
@@ -17,15 +7,28 @@ namespace DustCompactA
     public class Startup
     {
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="configuration"></param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
+        /// <summary>
+        /// Gett de la gestion de la conexion de la base de datos
+        /// </summary>
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services, Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenOptions c)
+        /// <summary>
+        /// heredando un isercollection para services
+        /// cadena de coneccion para la inyeccion de dependencias
+        /// </summary>
+        /// <param name="services"> coleccion de servicios</param>
+        /// /// <param name="postgresSQLConnectionConfiguration"> Engloba la cadena de conexxion</param>
+        /// /// <param name="AddScoped"> Inyeccion de dependencias</param>
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
 
@@ -46,7 +49,8 @@ namespace DustCompactA
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI();
             }
             else
             {
@@ -56,7 +60,7 @@ namespace DustCompactA
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+          //  app.UseStaticFiles();
 
             app.UseRouting();
 
@@ -64,7 +68,7 @@ namespace DustCompactA
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
+                endpoints.MapControllers();
             });
         }
     }
