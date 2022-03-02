@@ -14,8 +14,6 @@ namespace DustCompactA.Controllers
         public BasuraController(IBasuraRepositoy basuraRepositoy)
         {
             _basuraRepositoy = basuraRepositoy;
-
-
         }
         /// <summary>
         /// diferentes procedimientos de una API

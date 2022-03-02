@@ -91,10 +91,10 @@ namespace DustCompact.Bussiones.Repositories
             var db = dbConnection();
 
             var sql = @"
-                        INSER INTO pubic.""tbl_Desperdicio"" (iid_residuo, iid_user, dpeso, ccomentarios, dtfechacreacion, dtfechamodificacion pdteechaeliminacion)
-                        VALUES (@iId,@iId_Residuo,@iId_User,@dPeso,@cComentario,@dtFechaCreacion, @dtFechaModificacion, @dtFechaEliminacion) ";
+                        INSER INTO public.""tbl_Desperdicio"" (iid_residuo, iid_user, dpeso, ccomentarios, dtfechacreacion, dtfechamodificacion pdteechaeliminacion)
+                        VALUES (@iId_Residuo,@iId_User,@dPeso,@cComentario,@dtFechaCreacion, @dtFechaModificacion, @dtFechaEliminacion) ";
 
-            var result = await db.ExecuteAsync(sql, new { basuras.iId_Residuo, basuras.iId_User, basuras.dtFechaCreacion, basuras.dtFechaModificacion, basuras.dtFechaEliminacion});
+            var result = await db.ExecuteAsync(sql, new { basuras.iId_Residuo, basuras.iId_User,basuras.dPeso, basuras.cComentarios, basuras.dtFechaCreacion, basuras.dtFechaModificacion, basuras.dtFechaEliminacion});
             return result >0 ;///
         }
 
