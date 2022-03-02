@@ -91,10 +91,10 @@ namespace DustCompact.Bussiones.Repositories
             var db = dbConnection();
 
             var sql = @"
-                        INSER INTO public.""tbl_Desperdicio"" (iid_residuo, iid_user, dpeso, ccomentarios, dtfechacreacion, dtfechamodificacion pdteechaeliminacion)
-                        VALUES (@iId_Residuo,@iId_User,@dPeso,@cComentario,@dtFechaCreacion, @dtFechaModificacion, @dtFechaEliminacion) ";
+                        INSERT INTO public.""tbl_Desperdicio"" (""iid_residuo"", ""iid_user"", ""dpeso"",""ccomentario"", ""dtfechacreacion"", ""dtfechamodificacion"", ""dtfechaeliminacion"")
+                        VALUES (@iId_Residuo,@iId_User,@dPeso,@cComentarios,@dtFechaCreacion, @dtFechaModificacion, @dtFechaEliminacion) ";
 
-            var result = await db.ExecuteAsync(sql, new { basuras.iId_Residuo, basuras.iId_User,basuras.dPeso, basuras.cComentarios, basuras.dtFechaCreacion, basuras.dtFechaModificacion, basuras.dtFechaEliminacion});
+            var result = await db.ExecuteAsync(sql, new { basuras.iId_Residuo, basuras.iId_User,basuras.dPeso,basuras.cComentarios, basuras.dtFechaCreacion, basuras.dtFechaModificacion, basuras.dtFechaEliminacion});
             return result >0 ;///
         }
 
@@ -103,19 +103,19 @@ namespace DustCompact.Bussiones.Repositories
             var db = dbConnection();
             ///se realiza una igualacion de los parametros a insertar vs los para metros de las cabeceras de la tabla
             var sql = @"
-                        UPDATE pubic.""tbl_Desperdicio"" 
+                        UPDATE public.""tbl_Desperdicio"" 
                         SET iid= @iId,
                             iid_residuo= @iId_Residuo,
                             iid_user= @iId_User,
                             dpeso= @dPeso,
-                            ccomentarios= @cComentario,
+                            ccomentarios= @cComentarios,
                             dtfechacreacion= @dtFechaCreacion,
                             dtfechamodificacion= @dtFechaModificacion,
                             pdtfechaeliminacion= @dtFechaEliminacion,
                         WHERE id = @iId
                         ";
 
-            var result = await db.ExecuteAsync(sql, new { basuras.iId, basuras.iId_Residuo, basuras.iId_User, basuras.dtFechaCreacion, basuras.dtFechaModificacion, basuras.dtFechaEliminacion });
+            var result = await db.ExecuteAsync(sql, new { basuras.iId, basuras.iId_Residuo, basuras.iId_User,basuras.dPeso,basuras.cComentarios, basuras.dtFechaCreacion, basuras.dtFechaModificacion, basuras.dtFechaEliminacion });
             return result > 0;
         }
     }
